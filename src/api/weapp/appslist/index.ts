@@ -2,15 +2,12 @@ import request from '@/config/axios'
 
 // 小程序清单 VO
 export interface AppsListVO {
-  id: number // 主键ID;主键iD
-  weappName: string // 小程序名称;小程序名称
-  weappOpenid: string // 小程序OPENID;小程序OPENID
-  classId: string // 分类ID;所属分类ID
-  description: string // 小程序简介;小程序说明
-  logoImg: string // 小程序图标;小程序图标
-  status: string // 状态;状态
-  updatedBy: string // 更新人;更新人
-  updatedTime: Date // 更新时间;数据更新时间
+  weappName: string // 小程序名称
+  weappOpenid: string // 小程序OPENID
+  classId: string // 分类ID
+  logoImg: string // 小程序图标
+  status: number // 发布状态
+  id: number // 主键ID
 }
 
 // 小程序清单 API

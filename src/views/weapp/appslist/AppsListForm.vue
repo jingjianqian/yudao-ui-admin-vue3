@@ -7,36 +7,22 @@
       label-width="100px"
       v-loading="formLoading"
     >
-      <el-form-item label="小程序名称;小程序名称" prop="weappName">
-        <el-input v-model="formData.weappName" placeholder="请输入小程序名称;小程序名称" />
+      <el-form-item label="小程序名称" prop="weappName">
+        <el-input v-model="formData.weappName" placeholder="请输入小程序名称" />
       </el-form-item>
-      <el-form-item label="小程序OPENID;小程序OPENID" prop="weappOpenid">
-        <el-input v-model="formData.weappOpenid" placeholder="请输入小程序OPENID;小程序OPENID" />
+      <el-form-item label="小程序OPENID" prop="weappOpenid">
+        <el-input v-model="formData.weappOpenid" placeholder="请输入小程序OPENID" />
       </el-form-item>
-      <el-form-item label="分类ID;所属分类ID" prop="classId">
-        <el-input v-model="formData.classId" placeholder="请输入分类ID;所属分类ID" />
+      <el-form-item label="分类ID" prop="classId">
+        <el-input v-model="formData.classId" placeholder="请输入分类ID" />
       </el-form-item>
-      <el-form-item label="小程序简介;小程序说明" prop="description">
-        <Editor v-model="formData.description" height="150px" />
+      <el-form-item label="小程序图标" prop="logoImg">
+        <el-input v-model="formData.logoImg" placeholder="请输入小程序图标" />
       </el-form-item>
-      <el-form-item label="小程序图标;小程序图标" prop="logoImg">
-        <el-input v-model="formData.logoImg" placeholder="请输入小程序图标;小程序图标" />
-      </el-form-item>
-      <el-form-item label="状态;状态" prop="status">
+      <el-form-item label="发布状态" prop="status">
         <el-radio-group v-model="formData.status">
           <el-radio label="1">请选择字典生成</el-radio>
         </el-radio-group>
-      </el-form-item>
-      <el-form-item label="更新人;更新人" prop="updatedBy">
-        <el-input v-model="formData.updatedBy" placeholder="请输入更新人;更新人" />
-      </el-form-item>
-      <el-form-item label="更新时间;数据更新时间" prop="updatedTime">
-        <el-date-picker
-          v-model="formData.updatedTime"
-          type="date"
-          value-format="x"
-          placeholder="选择更新时间;数据更新时间"
-        />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -59,21 +45,18 @@ const dialogTitle = ref('') // 弹窗的标题
 const formLoading = ref(false) // 表单的加载中：1）修改时的数据加载；2）提交的按钮禁用
 const formType = ref('') // 表单的类型：create - 新增；update - 修改
 const formData = ref({
-  id: undefined,
   weappName: undefined,
   weappOpenid: undefined,
   classId: undefined,
-  description: undefined,
   logoImg: undefined,
   status: undefined,
-  updatedBy: undefined,
-  updatedTime: undefined,
+  id: undefined,
 })
 const formRules = reactive({
-  weappName: [{ required: true, message: '小程序名称;小程序名称不能为空', trigger: 'blur' }],
-  weappOpenid: [{ required: true, message: '小程序OPENID;小程序OPENID不能为空', trigger: 'blur' }],
-  classId: [{ required: true, message: '分类ID;所属分类ID不能为空', trigger: 'blur' }],
-  status: [{ required: true, message: '状态;状态不能为空', trigger: 'blur' }],
+  weappName: [{ required: true, message: '小程序名称不能为空', trigger: 'blur' }],
+  weappOpenid: [{ required: true, message: '小程序OPENID不能为空', trigger: 'blur' }],
+  classId: [{ required: true, message: '分类ID不能为空', trigger: 'blur' }],
+  status: [{ required: true, message: '发布状态不能为空', trigger: 'blur' }],
 })
 const formRef = ref() // 表单 Ref
 
@@ -122,15 +105,12 @@ const submitForm = async () => {
 /** 重置表单 */
 const resetForm = () => {
   formData.value = {
-    id: undefined,
     weappName: undefined,
     weappOpenid: undefined,
     classId: undefined,
-    description: undefined,
     logoImg: undefined,
     status: undefined,
-    updatedBy: undefined,
-    updatedTime: undefined,
+    id: undefined,
   }
   formRef.value?.resetFields()
 }

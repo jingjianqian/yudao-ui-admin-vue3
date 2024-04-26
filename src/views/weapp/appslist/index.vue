@@ -8,71 +8,51 @@
       :inline="true"
       label-width="68px"
     >
-      <el-form-item label="小程序名称;小程序名称" prop="weappName">
+      <el-form-item label="小程序名称" prop="weappName">
         <el-input
           v-model="queryParams.weappName"
-          placeholder="请输入小程序名称;小程序名称"
+          placeholder="请输入小程序名称"
           clearable
           @keyup.enter="handleQuery"
           class="!w-240px"
         />
       </el-form-item>
-      <el-form-item label="小程序OPENID;小程序OPENID" prop="weappOpenid">
+      <el-form-item label="小程序OPENID" prop="weappOpenid">
         <el-input
           v-model="queryParams.weappOpenid"
-          placeholder="请输入小程序OPENID;小程序OPENID"
+          placeholder="请输入小程序OPENID"
           clearable
           @keyup.enter="handleQuery"
           class="!w-240px"
         />
       </el-form-item>
-      <el-form-item label="分类ID;所属分类ID" prop="classId">
+      <el-form-item label="分类ID" prop="classId">
         <el-input
           v-model="queryParams.classId"
-          placeholder="请输入分类ID;所属分类ID"
+          placeholder="请输入分类ID"
           clearable
           @keyup.enter="handleQuery"
           class="!w-240px"
         />
       </el-form-item>
-      <el-form-item label="小程序图标;小程序图标" prop="logoImg">
+      <el-form-item label="小程序图标" prop="logoImg">
         <el-input
           v-model="queryParams.logoImg"
-          placeholder="请输入小程序图标;小程序图标"
+          placeholder="请输入小程序图标"
           clearable
           @keyup.enter="handleQuery"
           class="!w-240px"
         />
       </el-form-item>
-      <el-form-item label="状态;状态" prop="status">
+      <el-form-item label="发布状态" prop="status">
         <el-select
           v-model="queryParams.status"
-          placeholder="请选择状态;状态"
+          placeholder="请选择发布状态"
           clearable
           class="!w-240px"
         >
           <el-option label="请选择字典生成" value="" />
         </el-select>
-      </el-form-item>
-      <el-form-item label="更新人;更新人" prop="updatedBy">
-        <el-input
-          v-model="queryParams.updatedBy"
-          placeholder="请输入更新人;更新人"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
-      <el-form-item label="更新时间;数据更新时间" prop="updatedTime">
-        <el-date-picker
-          v-model="queryParams.updatedTime"
-          value-format="YYYY-MM-DD HH:mm:ss"
-          type="daterange"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          :default-time="[new Date('1 00:00:00'), new Date('1 23:59:59')]"
-          class="!w-240px"
-        />
       </el-form-item>
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
@@ -101,21 +81,12 @@
   <!-- 列表 -->
   <ContentWrap>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
-      <el-table-column label="主键ID;主键iD" align="center" prop="id" />
-      <el-table-column label="小程序名称;小程序名称" align="center" prop="weappName" />
-      <el-table-column label="小程序OPENID;小程序OPENID" align="center" prop="weappOpenid" />
-      <el-table-column label="分类ID;所属分类ID" align="center" prop="classId" />
-      <el-table-column label="小程序简介;小程序说明" align="center" prop="description" />
-      <el-table-column label="小程序图标;小程序图标" align="center" prop="logoImg" />
-      <el-table-column label="状态;状态" align="center" prop="status" />
-      <el-table-column label="更新人;更新人" align="center" prop="updatedBy" />
-      <el-table-column
-        label="更新时间;数据更新时间"
-        align="center"
-        prop="updatedTime"
-        :formatter="dateFormatter"
-        width="180px"
-      />
+      <el-table-column label="小程序名称" align="center" prop="weappName" />
+      <el-table-column label="小程序OPENID" align="center" prop="weappOpenid" />
+      <el-table-column label="分类ID" align="center" prop="classId" />
+      <el-table-column label="小程序图标" align="center" prop="logoImg" />
+      <el-table-column label="发布状态" align="center" prop="status" />
+      <el-table-column label="主键ID" align="center" prop="id" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
           <el-button
@@ -151,7 +122,6 @@
 </template>
 
 <script setup lang="ts">
-import { dateFormatter } from '@/utils/formatTime'
 import download from '@/utils/download'
 import { AppsListApi, AppsListVO } from '@/api/weapp/appslist'
 import AppsListForm from './AppsListForm.vue'
@@ -171,11 +141,9 @@ const queryParams = reactive({
   weappName: undefined,
   weappOpenid: undefined,
   classId: undefined,
-  description: undefined,
   logoImg: undefined,
   status: undefined,
-  updatedBy: undefined,
-  updatedTime: [],
+  description: undefined,
 })
 const queryFormRef = ref() // 搜索的表单
 const exportLoading = ref(false) // 导出的加载中
