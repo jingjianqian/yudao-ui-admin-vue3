@@ -35,15 +35,6 @@
           class="!w-240px"
         />
       </el-form-item>
-      <el-form-item label="小程序图标" prop="logoImg">
-        <el-input
-          v-model="queryParams.logoImg"
-          placeholder="请输入小程序图标"
-          clearable
-          @keyup.enter="handleQuery"
-          class="!w-240px"
-        />
-      </el-form-item>
       <el-form-item label="发布状态" prop="status">
         <el-select
           v-model="queryParams.status"
@@ -51,7 +42,12 @@
           clearable
           class="!w-240px"
         >
-          <el-option label="请选择字典生成" value="" />
+          <el-option
+            v-for="dict in getIntDictOptions(DICT_TYPE.WEAPP_PUBLISH_STATUS)"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -85,7 +81,11 @@
       <el-table-column label="小程序OPENID" align="center" prop="weappOpenid" />
       <el-table-column label="分类ID" align="center" prop="classId" />
       <el-table-column label="小程序图标" align="center" prop="logoImg" />
-      <el-table-column label="发布状态" align="center" prop="status" />
+      <el-table-column label="发布状态" align="center" prop="status">
+        <template #default="scope">
+          <dict-tag :type="DICT_TYPE.WEAPP_PUBLISH_STATUS" :value="scope.row.status" />
+        </template>
+      </el-table-column>
       <el-table-column label="主键ID" align="center" prop="id" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
@@ -122,6 +122,7 @@
 </template>
 
 <script setup lang="ts">
+import { getIntDictOptions, DICT_TYPE } from '@/utils/dict'
 import download from '@/utils/download'
 import { AppsListApi, AppsListVO } from '@/api/weapp/appslist'
 import AppsListForm from './AppsListForm.vue'

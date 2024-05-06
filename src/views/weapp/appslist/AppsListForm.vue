@@ -17,11 +17,17 @@
         <el-input v-model="formData.classId" placeholder="请输入分类ID" />
       </el-form-item>
       <el-form-item label="小程序图标" prop="logoImg">
-        <el-input v-model="formData.logoImg" placeholder="请输入小程序图标" />
+        <UploadImg v-model="formData.logoImg" />
       </el-form-item>
       <el-form-item label="发布状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio label="1">请选择字典生成</el-radio>
+          <el-radio
+            v-for="dict in getIntDictOptions(DICT_TYPE.WEAPP_PUBLISH_STATUS)"
+            :key="dict.value"
+            :label="dict.value"
+          >
+            {{ dict.label }}
+          </el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
@@ -32,6 +38,7 @@
   </Dialog>
 </template>
 <script setup lang="ts">
+import { getIntDictOptions, DICT_TYPE } from '@/utils/dict'
 import { AppsListApi, AppsListVO } from '@/api/weapp/appslist'
 
 /** 小程序清单 表单 */
