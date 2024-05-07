@@ -43,7 +43,7 @@
           class="!w-240px"
         >
           <el-option
-            v-for="dict in getIntDictOptions(DICT_TYPE.WEAPP_PUBLISH_STATUS)"
+            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -78,15 +78,20 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column label="小程序名称" align="center" prop="weappName" />
+      <el-table-column label="banner显示" align="center" prop="isBanner">
+        <template #default="scope">
+          <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.isBanner" />
+        </template>
+      </el-table-column>
       <el-table-column label="小程序OPENID" align="center" prop="weappOpenid" />
       <el-table-column label="分类ID" align="center" prop="classId" />
       <el-table-column label="小程序图标" align="center" prop="logoImg" />
       <el-table-column label="发布状态" align="center" prop="status">
         <template #default="scope">
-          <dict-tag :type="DICT_TYPE.WEAPP_PUBLISH_STATUS" :value="scope.row.status" />
+          <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column label="主键ID" align="center" prop="id" />
+      <!-- <el-table-column label="主键ID" align="center" prop="id" /> -->
       <el-table-column label="操作" align="center">
         <template #default="scope">
           <el-button
@@ -140,6 +145,7 @@ const queryParams = reactive({
   pageNo: 1,
   pageSize: 10,
   weappName: undefined,
+  isBanner:undefined,
   weappOpenid: undefined,
   classId: undefined,
   logoImg: undefined,

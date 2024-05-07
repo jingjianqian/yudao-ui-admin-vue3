@@ -13,6 +13,17 @@
       <el-form-item label="小程序OPENID" prop="weappOpenid">
         <el-input v-model="formData.weappOpenid" placeholder="请输入小程序OPENID" />
       </el-form-item>
+      <el-form-item label="是否banner展示" prop="isBanner">
+        <el-radio-group v-model="formData.isBanner">
+          <el-radio
+            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="dict.value"
+            :label="dict.value"
+          >
+            {{ dict.label }}
+          </el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="分类ID" prop="classId">
         <el-input v-model="formData.classId" placeholder="请输入分类ID" />
       </el-form-item>
@@ -22,7 +33,7 @@
       <el-form-item label="发布状态" prop="status">
         <el-radio-group v-model="formData.status">
           <el-radio
-            v-for="dict in getIntDictOptions(DICT_TYPE.WEAPP_PUBLISH_STATUS)"
+            v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
             :key="dict.value"
             :label="dict.value"
           >
@@ -56,6 +67,7 @@ const formData = ref({
   weappOpenid: undefined,
   classId: undefined,
   logoImg: undefined,
+  isBanner: undefined,
   status: undefined,
   id: undefined,
 })
@@ -116,6 +128,7 @@ const resetForm = () => {
     weappOpenid: undefined,
     classId: undefined,
     logoImg: undefined,
+    isBanner: undefined,
     status: undefined,
     id: undefined,
   }

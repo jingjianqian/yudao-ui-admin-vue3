@@ -12,8 +12,17 @@
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio label="1">请选择字典生成</el-radio>
+          <el-radio
+            v-for="dict in getStrDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="dict.value"
+            :label="dict.value"
+          >
+            {{ dict.label }}
+          </el-radio>
         </el-radio-group>
+      </el-form-item>
+      <el-form-item label="排序" prop="index">
+        <el-input v-model="formData.indexNum" placeholder="请输入排序" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -23,6 +32,7 @@
   </Dialog>
 </template>
 <script setup lang="ts">
+import { getStrDictOptions, DICT_TYPE } from '@/utils/dict'
 import { AppsClassApi, AppsClassVO } from '@/api/weapp/appsclass'
 
 /** 小程序分类 表单 */
@@ -39,6 +49,7 @@ const formData = ref({
   id: undefined,
   className: undefined,
   status: undefined,
+  indexNum: undefined,
 })
 const formRules = reactive({
   className: [{ required: true, message: '分类名不能为空', trigger: 'blur' }],
@@ -94,6 +105,7 @@ const resetForm = () => {
     id: undefined,
     className: undefined,
     status: undefined,
+    indexNum: undefined,
   }
   formRef.value?.resetFields()
 }

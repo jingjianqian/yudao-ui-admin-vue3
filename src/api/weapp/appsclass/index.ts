@@ -5,6 +5,7 @@ export interface AppsClassVO {
   id: number // 主键ID
   className: string // 分类名
   status: string // 状态
+  index: number // 排序
 }
 
 // 小程序分类 API

@@ -24,7 +24,12 @@
           clearable
           class="!w-240px"
         >
-          <el-option label="请选择字典生成" value="" />
+          <el-option
+            v-for="dict in getStrDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
@@ -67,7 +72,11 @@
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column label="主键ID" align="center" prop="id" />
       <el-table-column label="分类名" align="center" prop="className" />
-      <el-table-column label="状态" align="center" prop="status" />
+      <el-table-column label="状态" align="center" prop="status">
+        <template #default="scope">
+          <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
+        </template>
+      </el-table-column>
       <el-table-column
         label="创建时间"
         align="center"
@@ -75,6 +84,7 @@
         :formatter="dateFormatter"
         width="180px"
       />
+      <el-table-column label="排序" align="center" prop="indexNum" />
       <el-table-column label="操作" align="center">
         <template #default="scope">
           <el-button
@@ -110,6 +120,7 @@
 </template>
 
 <script setup lang="ts">
+import { getStrDictOptions, DICT_TYPE } from '@/utils/dict'
 import { dateFormatter } from '@/utils/formatTime'
 import download from '@/utils/download'
 import { AppsClassApi, AppsClassVO } from '@/api/weapp/appsclass'
